@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Religion in Grünberg – Welche Kirche passt zu dir?</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-accent: #1d283a;
+      --card: #0b1120;
+      --card-soft: #111827;
+      --accent: #38bdf8;
+      --accent-2: #a855f7;
+      --accent-soft: rgba(56, 189, 248, 0.12);
+      --accent-soft-2: rgba(168, 85, 247, 0.16);
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --danger: #f97373;
+      --radius: 14px;
+      --shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, #38bdf8 0, transparent 55%),
+        radial-gradient(circle at bottom right, #a855f7 0, transparent 55%),
+        linear-gradient(135deg, #020617, #020617 40%, #030712);
+      color: var(--text);
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      padding: 1.5rem 1.5rem 0.5rem;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0.6rem 0 0.4rem;
+      font-size: clamp(1.9rem, 2.8vw, 2.5rem);
+      font-weight: 750;
+      letter-spacing: 0.03em;
+      background: linear-gradient(120deg, #e5e7eb, #bae6fd, #e9d5ff);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    header p {
+      margin: 0.2rem 0 1.3rem;
+      color: var(--muted);
+      max-width: 680px;
+      margin-inline: auto;
+      font-size: 0.97rem;
+    }
+
+    main {
+      max-width: 1100px;
+      width: 100%;
+      margin: 0 auto 3rem;
+      padding: 0 1.5rem 2.5rem;
+      flex: 1;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 3.2fr) minmax(0, 2.5fr);
+      gap: 1.8rem;
+      align-items: flex-start;
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: radial-gradient(circle at top left, rgba(148,163,184,0.2), transparent 55%),
+                  var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.7rem 1.7rem 1.5rem;
+      border: 1px solid rgba(148,163,184,0.35);
+      backdrop-filter: blur(12px);
+    }
+
+    .card--secondary {
+      background: radial-gradient(circle at top right, rgba(56,189,248,0.16), transparent 55%),
+                  var(--card-soft);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      margin-bottom: 0.8rem;
+      font-size: 1.2rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.22rem 0.7rem;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(148,163,184,0.55);
+      color: var(--muted);
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 0.6rem;
+    }
+
+    .badge span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      background: radial-gradient(circle, var(--accent), var(--accent-2));
+      color: #020617;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+
+    .intro-list {
+      list-style: none;
+      padding: 0;
+      margin: 0.6rem 0 0;
+      font-size: 0.9rem;
+    }
+
+    .intro-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      margin-bottom: 0.55rem;
+    }
+
+    .intro-list span.emoji {
+      font-size: 1.15rem;
+      line-height: 1.1;
+      margin-top: 0.12rem;
+    }
+
+    .intro-list strong {
+      color: #e5e7eb;
+    }
+
+    form {
+      margin-top: 0.4rem;
+    }
+
+    fieldset {
+      border: none;
+      padding: 0;
+      margin: 1rem 0;
+      border-bottom: 1px solid rgba(148,163,184,0.35);
+      padding-bottom: 0.7rem;
+    }
+
+    fieldset:last-of-type {
+      border-bottom: none;
+      padding-bottom: 0;
+      margin-bottom: 0.3rem;
+    }
+
+    legend {
+      font-weight: 600;
+      margin-bottom: 0.55rem;
+      font-size: 0.98rem;
+      color: #e5e7eb;
+    }
+
+    .options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.35rem 1rem;
+    }
+
+    @media (max-width: 700px) {
+      .options {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    label.option {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      font-size: 0.88rem;
+      cursor: pointer;
+      padding: 0.35rem 0.55rem;
+      border-radius: 10px;
+      transition: background 0.15s ease, transform 0.1s ease, border 0.15s ease;
+      border: 1px solid transparent;
+    }
+
+    label.option:hover {
+      background: rgba(15,23,42,0.9);
+      border-color: rgba(56,189,248,0.4);
+      transform: translateY(-1px);
+    }
+
+    label.option input[type="radio"] {
+      margin-top: 0.14rem;
+      accent-color: var(--accent);
+    }
+
+    .actions {
+      margin-top: 1.4rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    button[type="submit"] {
+      border: none;
+      background: linear-gradient(135deg, #38bdf8, #a855f7);
+      color: #0b1120;
+      padding: 0.8rem 1.6rem;
+      border-radius: 999px;
+      font-weight: 650;
+      font-size: 0.96rem;
+      cursor: pointer;
+      box-shadow: 0 18px 35px rgba(56,189,248,0.35);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+    }
+
+    button[type="submit"] span {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    button[type="submit"]:hover {
+      filter: brightness(1.05);
+      transform: translateY(-1px);
+    }
+
+    button[type="submit"]:active {
+      transform: translateY(0);
+      box-shadow: 0 10px 22px rgba(56,189,248,0.3);
+    }
+
+    .subtext {
+      font-size: 0.78rem;
+      color: var(--muted);
+      max-width: 260px;
+    }
+
+    .error {
+      color: var(--danger);
+      font-size: 0.85rem;
+      margin-top: 0.55rem;
+    }
+
+    .result {
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      opacity: 0;
+      transform: translateY(6px);
+      pointer-events: none;
+    }
+
+    .result.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .result-title {
+      font-size: 1.15rem;
+      margin: 0 0 0.35rem;
+    }
+
+    .tagline {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin: 0 0 0.8rem;
+    }
+
+    .result-body {
+      font-size: 0.88rem;
+      margin-bottom: 0.6rem;
+      white-space: pre-line;
+    }
+
+    .meta {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.6rem;
+    }
+
+    .meta div {
+      margin-bottom: 0.18rem;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 0.14rem 0.55rem;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: #e0f2fe;
+      font-size: 0.75rem;
+      margin-right: 0.2rem;
+    }
+
+    .pill--purple {
+      background: var(--accent-soft-2);
+      color: #f5e9ff;
+    }
+
+    .result-image {
+      margin-top: 0.95rem;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #020617;
+      border: 1px solid rgba(148,163,184,0.6);
+      box-shadow: 0 14px 30px rgba(15,23,42,0.9);
+    }
+
+    .result-image img {
+      width: 100%;
+      display: block;
+    }
+
+    .result-image figcaption {
+      font-size: 0.78rem;
+      color: var(--muted);
+      padding: 0.55rem 0.75rem;
+      background: radial-gradient(circle at top left, rgba(56,189,248,0.08), transparent 55%);
+    }
+
+    hr.divider {
+      margin: 1.4rem 0 1.1rem;
+      border: none;
+      border-top: 1px dashed rgba(148,163,184,0.5);
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--muted);
+      padding: 0 1.5rem 1.6rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Religion in Grünberg – Welcher Ort passt zu dir?</h1>
+    <p>
+      Beantworte ein paar Fragen zu deiner Persönlichkeit.  
+      Am Ende erhältst du ein kirchliches Ziel in <strong>35305 Grünberg</strong>, das gut zu dir passt.
+    </p>
+  </header>
+
+  <main>
+    <div class="layout">
+      <!-- Quiz-Karte -->
+      <section class="card">
+        <div class="badge"><span>★</span> Grünberger Match · Quiz</div>
+        <h2>Finde deinen passenden religiösen Ort</h2>
+
+        <form id="quiz-form">
+          <!-- Frage 1 -->
+          <fieldset>
+            <legend>1. Wenn du an Glauben denkst – was ist dir am wichtigsten?</legend>
+            <div class="options">
+              <label class="option">
+                <input type="radio" name="q1" value="gemeinschaft">
+                Mit anderen Menschen zusammen sein und etwas erleben
+              </label>
+              <label class="option">
+                <input type="radio" name="q1" value="stille">
+                Zur Ruhe kommen und in Stille nachdenken
+              </label>
+              <label class="option">
+                <input type="radio" name="q1" value="tradition">
+                Feste Rituale und eine spürbare Tradition
+              </label>
+              <label class="option">
+                <input type="radio" name="q1" value="musik">
+                Musik, Klänge, Singen und Hören
+              </label>
+            </div>
+          </fieldset>
+
+          <!-- Frage 2 -->
+          <fieldset>
+            <legend>2. Wo fühlst du dich in Grünberg am ehesten „zu Hause“?</legend>
+            <div class="options">
+              <label class="option">
+                <input type="radio" name="q2" value="gemeinschaft">
+                In der Nähe des Marktplatzes und der Stadtkirche, wo Leben ist
+              </label>
+              <label class="option">
+                <input type="radio" name="q2" value="natur">
+                Beim Spaziergang über Feld, Wald oder durch die Ortsteile
+              </label>
+              <label class="option">
+                <input type="radio" name="q2" value="stille">
+                In einem ruhigen Nebenraum oder einer kleinen Kapelle
+              </label>
+              <label class="option">
+                <input type="radio" name="q2" value="tradition">
+                An Orten, die eine lange Geschichte haben
+              </label>
+            </div>
+          </fieldset>
+
+          <!-- Frage 3 -->
+          <fieldset>
+            <legend>3. Wie gehst du mit neuen Menschen in einer Gemeinde um?</legend>
+            <div class="options">
+              <label class="option">
+                <input type="radio" name="q3" value="gemeinschaft">
+                Ich komme leicht ins Gespräch und helfe gern mit
+              </label>
+              <label class="option">
+                <input type="radio" name="q3" value="stille">
+                Ich beobachte zuerst und brauche Zeit zum Ankommen
+              </label>
+              <label class="option">
+                <input type="radio" name="q3" value="natur">
+                Kleine, überschaubare Gruppen im Dorf sind mir am liebsten
+              </label>
+              <label class="option">
+                <input type="radio" name="q3" value="tradition">
+                Ich halte mich an gewohnte Abläufe und vertraute Gesichter
+              </label>
+            </div>
+          </fieldset>
+
+          <!-- Frage 4 -->
+          <fieldset>
+            <legend>4. Was spricht dich in Kirchenräumen am meisten an?</legend>
+            <div class="options">
+              <label class="option">
+                <input type="radio" name="q4" value="musik">
+                Die Orgel, die Musik und die Akustik
+              </label>
+              <label class="option">
+                <input type="radio" name="q4" value="tradition">
+                Altäre, Figuren, Symbole und Baugeschichte
+              </label>
+              <label class="option">
+                <input type="radio" name="q4" value="stille">
+                Eine kleine Ecke der Stille, abseits vom Trubel
+              </label>
+              <label class="option">
+                <input type="radio" name="q4" value="gemeinschaft">
+                Dass viele Menschen Platz haben und gemeinsam feiern können
+              </label>
+            </div>
+          </fieldset>
+
+          <!-- Frage 5 -->
+          <fieldset>
+            <legend>5. Wie würdest du deinen Charakter in einem Wort beschreiben?</legend>
+            <div class="options">
+              <label class="option">
+                <input type="radio" name="q5" value="gemeinschaft">
+                Offen & kontaktfreudig
+              </label>
+              <label class="option">
+                <input type="radio" name="q5" value="stille">
+                Ruhig & nachdenklich
+              </label>
+              <label class="option">
+                <input type="radio" name="q5" value="tradition">
+                Beständig & werteorientiert
+              </label>
+              <label class="option">
+                <input type="radio" name="q5" value="natur">
+                Bodenständig & naturverbunden
+              </label>
+            </div>
+          </fieldset>
+
+          <!-- Frage 6 -->
+          <fieldset>
+            <legend>6. Wie erlebst du Gottesdienste am liebsten?</legend>
+            <div class="options">
+              <label class="option">
+                <input type="radio" name="q6" value="musik">
+                Mit viel Musik, vielleicht sogar mitgestaltet vom Chor
+              </label>
+              <label class="option">
+                <input type="radio" name="q6" value="gemeinschaft">
+                Wenn viele Generationen zusammen kommen
+              </label>
+              <label class="option">
+                <input type="radio" name="q6" value="stille">
+                Kürzer, schlicht, mit Raum für Stille
+              </label>
+              <label class="option">
+                <input type="radio" name="q6" value="natur">
+                Klein, vertraut – z.B. in einer Dorfkirche
+              </label>
+            </div>
+          </fieldset>
+
+          <!-- Frage 7 -->
+          <fieldset>
+            <legend>7. Was motiviert dich, einen religiösen Ort zu besuchen?</legend>
+            <div class="options">
+              <label class="option">
+                <input type="radio" name="q7" value="tradition">
+                Hohe Feiertage und besondere Anlässe
+              </label>
+              <label class="option">
+                <input type="radio" name="q7" value="stille">
+                Eigene Lebensfragen, Krisen oder Dankbarkeit
+              </label>
+              <label class="option">
+                <input type="radio" name="q7" value="gemeinschaft">
+                Aktionen, Gruppen, Ehrenamt, Begegnung
+              </label>
+              <label class="option">
+                <input type="radio" name="q7" value="musik">
+                Konzerte, Orgelmusik, besondere musikalische Angebote
+              </label>
+            </div>
+          </fieldset>
+
+          <!-- Frage 8 -->
+          <fieldset>
+            <legend>8. Wie wichtig ist dir die Geschichte des Gebäudes?</legend>
+            <div class="options">
+              <label class="option">
+                <input type="radio" name="q8" value="tradition">
+                Sehr wichtig – je mehr Geschichte, desto besser
+              </label>
+              <label class="option">
+                <input type="radio" name="q8" value="gemeinschaft">
+                Nett, aber entscheidend ist, was heute dort passiert
+              </label>
+              <label class="option">
+                <input type="radio" name="q8" value="stille">
+                Mir ist wichtiger, wie sich der Raum anfühlt
+              </label>
+              <label class="option">
+                <input type="radio" name="q8" value="natur">
+                Ich achte eher auf die Umgebung als auf Details des Gebäudes
+              </label>
+            </div>
+          </fieldset>
+
+          <!-- Frage 9 -->
+          <fieldset>
+            <legend>9. Wenn du dir Zeit für dich nimmst, sieht das eher so aus:</legend>
+            <div class="options">
+              <label class="option">
+                <input type="radio" name="q9" value="stille">
+                Allein sein, vielleicht mit einem Gebet oder Tagebuch
+              </label>
+              <label class="option">
+                <input type="radio" name="q9" value="natur">
+                Ein Spaziergang im Grünen oder durch ein Dorf
+              </label>
+              <label class="option">
+                <input type="radio" name="q9" value="musik">
+                Musik hören oder selbst Musik machen
+              </label>
+              <label class="option">
+                <input type="radio" name="q9" value="gemeinschaft">
+                Mit Freunden oder Familie etwas unternehmen
+              </label>
+            </div>
+          </fieldset>
+
+          <!-- Frage 10 -->
+          <fieldset>
+            <legend>10. Wie spontan bist du?</legend>
+            <div class="options">
+              <label class="option">
+                <input type="radio" name="q10" value="gemeinschaft">
+                Sehr spontan – ich bin dabei, wenn etwas los ist
+              </label>
+              <label class="option">
+                <input type="radio" name="q10" value="tradition">
+                Ich plane lieber und halte mich an meinen Rhythmus
+              </label>
+              <label class="option">
+                <input type="radio" name="q10" value="natur">
+                Ich entscheide nach Stimmung und Wetter
+              </label>
+              <label class="option">
+                <input type="radio" name="q10" value="stille">
+                Ich brauche etwas Vorlaufzeit, um mich darauf einzulassen
+              </label>
+            </div>
+          </fieldset>
+
+          <div class="actions">
+            <button type="submit">
+              Auswertung anzeigen
+              <span aria-hidden="true">➜</span>
+            </button>
+            <div class="subtext">
+              Die Auswertung erfolgt lokal in deinem Browser – es werden keine Daten gespeichert.
+            </div>
+          </div>
+
+          <div id="error" class="error" aria-live="polite"></div>
+        </form>
+      </section>
+
+      <!-- Ergebnis & Info-Karte -->
+      <aside class="card card--secondary">
+        <div class="badge"><span>i</span> Dein Grünberger Match</div>
+        <section id="result" class="result" aria-live="polite">
+          <h2 class="result-title">Beantworte das Quiz, um dein Ergebnis zu sehen.</h2>
+          <p class="tagline">
+            Hier erscheint dein persönlicher Tipp: ein kirchlicher Ort in oder um Grünberg, der gut zu dir passt.
+          </p>
+        </section>
+
+        <hr class="divider">
+
+        <h2>Religion in Grünberg auf einen Blick</h2>
+        <ul class="intro-list">
+          <li>
+            <span class="emoji">⛪</span>
+            <span>
+              <strong>Evangelische Stadtkirche Grünberg</strong> mit ihrem hohen Turm prägt die Altstadt
+              und ist ein zentraler Ort für Gottesdienste, Musik und Gemeindeleben.
+            </span>
+          </li>
+          <li>
+            <span class="emoji">✝️</span>
+            <span>
+              Die <strong>katholische Kirche „Sieben Schmerzen Mariens“</strong> in der Bahnhofstraße
+              ist geistliches Zentrum und Treffpunkt der katholischen Gemeinde.
+            </span>
+          </li>
+          <li>
+            <span class="emoji">🌾</span>
+            <span>
+              <strong>Dorfkirchen im Grünberger Land</strong> verbinden dörfliche Gemeinschaft mit
+              gelebtem Glauben – zum Beispiel in Lardenbach, Klein-Eichen oder Lehnheim.
+            </span>
+          </li>
+          <li>
+            <span class="emoji">🕊️</span>
+            <span>
+              Der <strong>Marktplatz mit Luthergedenkstätte</strong> erinnert an Martin Luther und
+              verknüpft Alltag, Geschichte und Reformation.
+            </span>
+          </li>
+        </ul>
+      </aside>
+    </div>
+  </main>
+
+  <footer>
+    Schulprojekt Grünberg · Layout &amp; Quiz kannst du frei anpassen.
+  </footer>
+
+  <script>
+    (function() {
+      const form = document.getElementById('quiz-form');
+      const errorBox = document.getElementById('error');
+      const resultBox = document.getElementById('result');
+
+      // Mapping von Persönlichkeitstyp ➜ Ort in Grünberg
+      const resultMap = {
+        gemeinschaft: {
+          title: "Evangelische Stadtkirche Grünberg",
+          tagline: "Du bist ein Gemeinschaftsmensch – die Stadtkirche passt gut zu dir.",
+          body: `Die evangelische Stadtkirche in Grünberg ist eines der bekanntesten Gebäude der Stadt und fällt jedem sofort ins Auge, wenn man durch die Altstadt läuft. Ihr hoher Turm ist schon von weitem zu sehen, und viele von uns waren schon mindestens einmal dort, sei es bei einem Konzert, einem Gottesdienst oder einfach, um sich das Gebäude anzuschauen. Die Kirche gibt es schon seit dem Mittelalter, und sie hat im Laufe der Jahrhunderte viel erlebt, zum Beispiel Stadtbrände und verschiedene Umbauten. In der Zeit der Reformation wurde sie schließlich zur evangelischen Stadtkirche, was sie bis heute geblieben ist.
+
+Auch wenn sie alt ist, merkt man ihr an, dass sie ein wichtiger Teil der Geschichte und Identität von Grünberg ist. Von außen wirkt sie beeindruckend, aber nicht übertrieben prunkvoll. Typisch sind ihr hoher Turm und die gotischen Elemente wie die Spitzbogenfenster. Innen ist die Kirche eher schlicht, aber hell und ruhig, was eine besondere Atmosphäre schafft. Besonders auffällig ist die große Orgel, die oft bei musikalischen Veranstaltungen zum Einsatz kommt. Die Kirche ist aber nicht nur ein historisches Bauwerk, sondern ein Ort, an dem auch heute viel passiert. Dort finden regelmäßig Gottesdienste, Taufen, Hochzeiten und Konzerte statt, sodass die Kirche für viele Menschen in Grünberg eine Bedeutung hat – egal ob man religiös ist oder nicht. Insgesamt kann man sagen, dass die evangelische Stadtkirche ein wichtiger Teil von Grünberg ist, weil sie sowohl die Geschichte der Stadt widerspiegelt als auch ein Treffpunkt für das heutige Gemeindeleben ist.`,
+          address: "An der Stadtkirche 1, 35305 Grünberg",
+          tags: ["evangelisch", "Innenstadt", "Gemeinde & Aktionen"],
+          image: "F865C34E-9ACB-4B20-8A84-B6140CC780E5.jpeg",
+          imageAlt: "Seitenansicht der evangelischen Stadtkirche Grünberg mit hohen Fenstern"
+        },
+        tradition: {
+          title: "Katholische Kirche „Sieben Schmerzen Mariens“",
+          tagline: "Du schätzt Tiefe, Rituale und klare Formen – hier bist du richtig.",
+          body: `Die katholische Kirche Sieben Schmerzen Mariens in Grünberg (35305) ist das geistliche Zentrum der örtlichen katholischen Gemeinde und gehört zur Pfarrei Heilig Kreuz im Bistum Mainz. Das Gotteshaus in der Bahnhofstraße bildet seit vielen Jahren einen wichtigen Treffpunkt für Gläubige aus Grünberg und den umliegenden Ortschaften. In der Kirche finden regelmäßig Gottesdienste statt, darunter Vorabendmessen am Samstag, Werktagsgottesdienste sowie die sonntägliche Eucharistiefeier, die viele Gemeindemitglieder zusammenführt.
+
+Neben den liturgischen Feiern hat die Kirche auch eine soziale und gemeinschaftsbildende Bedeutung: Die Pfarrei organisiert zahlreiche Angebote für Kinder, Jugendliche, Familien und Senioren, fördert Begegnung und Gemeinschaft und unterstützt verschiedene soziale Projekte in der Region. So wirkt die katholische Kirche Sieben Schmerzen Mariens weit über ihre Rolle als Ort des Gebets hinaus – sie ist ein fester Bestandteil des religiösen, sozialen und kulturellen Lebens in Grünberg und trägt mit ihren vielfältigen Aktivitäten dazu bei, Menschen miteinander zu verbinden und das Miteinander in der Stadt zu stärken.`,
+          address: "Bahnhofstraße, 35305 Grünberg",
+          tags: ["katholisch", "Tradition & Liturgie"],
+          image: "D6629F0F-C7EF-4F45-A7F7-446E69CBADF7.jpeg",
+          imageAlt: "Ansicht der katholischen Kirche Sieben Schmerzen Mariens in Grünberg"
+        },
+        stille: {
+          title: "Marktplatz mit Luthergedenkstätte",
+          tagline: "Du suchst Orte, an denen Alltag und Geschichte zusammenkommen.",
+          body: `Der Marktplatz von Grünberg bildet das lebendige Zentrum der Altstadt: umgeben von historischen Fachwerkhäusern, dem alten Rathaus und gepflasterten Gassen, verbindet er bis heute Handel, Begegnung und Geschichte. An diesem Ort stand einst das Lutherhaus, ein Fachwerkgebäude, in dem Martin Luther auf seiner Rückreise vom Wormser Reichstag im Jahr 1521 übernachtet haben soll. Obwohl das Gebäude 1891 wegen Baufälligkeit abgerissen wurde, erinnert eine Gedenkstelle noch heute an seinen Aufenthalt. So vereint der Marktplatz den Alltag der Stadt mit bedeutenden historischen Spuren und macht sichtbar, wie eng Grünbergs Geschichte mit der Reformationszeit verbunden ist.`,
+          address: "Marktplatz, 35305 Grünberg",
+          tags: ["Altstadt", "Geschichte", "Luther"],
+          image: "20F529D5-B8B8-4201-87A1-C2A4150B477C.jpeg",
+          imageAlt: "Modell des historischen Lutherhauses in einer Glasvitrine auf dem Marktplatz"
+        },
+        natur: {
+          title: "Dorfkirchen im Grünberger Land",
+          tagline: "Du bist bodenständig und naturverbunden.",
+          body: `Du fühlst dich in kleineren Strukturen, auf dem Land und nah an der Natur wohl. Die evangelischen Dorfkirchen zum Beispiel in Lardenbach, Klein-Eichen oder Lehnheim verbinden dörfliche Gemeinschaft mit gelebtem Glauben. Kleine Gottesdienste, kurze Wege, bekannte Gesichter – hier kann Glaube ganz nah am Alltag stattfinden.`,
+          address: "Je nach Ortsteil (z.B. Lardenbach, Klein-Eichen, Lehnheim) · 35305 Grünberg",
+          tags: ["Dorfkirchen", "ländlich", "überschaubare Gemeinde"],
+          image: "561CF799-C436-4E46-A721-053C2F4B4524.jpeg",
+          imageAlt: "Kirchturm mit Gerüst im Grünberger Land"
+        },
+        musik: {
+          title: "Orgel & Kirchenmusik in der Stadtkirche Grünberg",
+          tagline: "Musik ist deine Sprache – Klang wird hier zum Gebet.",
+          body: `Du spürst Glauben besonders über Klang und Rhythmus. Die evangelische Stadtkirche verfügt über eine große Orgel und bietet Raum für musikalische Gottesdienste und Konzerte. Wenn du Musik liebst, lohnt es sich, gerade diese Angebote im Blick zu behalten – egal ob du zuhörst oder vielleicht selbst einmal mitmachst.`,
+          address: "Evangelische Stadtkirche, An der Stadtkirche 1, 35305 Grünberg",
+          tags: ["Musik", "Orgel", "Konzerte"],
+          image: "F865C34E-9ACB-4B20-8A84-B6140CC780E5.jpeg",
+          imageAlt: "Fensterfront der evangelischen Stadtkirche Grünberg – gut geeignet für Kirchenmusik"
+        }
+      };
+
+      function evaluateQuiz() {
+        const counts = {
+          gemeinschaft: 0,
+          tradition: 0,
+          stille: 0,
+          natur: 0,
+          musik: 0
+        };
+
+        // Alle Fragen anhand der Namen ermitteln
+        const questionNames = new Set();
+        form.querySelectorAll('input[type="radio"]').forEach(input => {
+          questionNames.add(input.name);
+        });
+
+        // Prüfen, ob alle Fragen beantwortet sind
+        for (const name of questionNames) {
+          const checked = form.querySelector(`input[name="${name}"]:checked`);
+          if (!checked) {
+            return { error: "Bitte beantworte alle Fragen, bevor du die Auswertung anzeigen lässt." };
+          }
+          const trait = checked.value;
+          if (counts.hasOwnProperty(trait)) {
+            counts[trait] += 1;
+          }
+        }
+
+        // Höchsten Wert bestimmen
+        let bestTrait = null;
+        let bestScore = -1;
+        for (const [trait, score] of Object.entries(counts)) {
+          if (score > bestScore) {
+            bestScore = score;
+            bestTrait = trait;
+          }
+        }
+
+        if (!bestTrait || !resultMap[bestTrait]) {
+          return { error: "Bei der Auswertung ist etwas schiefgelaufen. Bitte versuche es noch einmal." };
+        }
+
+        
+const totalQuestions = questionNames.size;
+const percentage = Math.round((bestScore / totalQuestions) * 100);
+const overallPercent = 100;
+
+return { 
+  trait: bestTrait, 
+  data: resultMap[bestTrait],
+  percent: percentage,
+  overall: overallPercent
+};
+
+      }
+
+      function renderResult(result) {
+        resultBox.classList.remove("visible");
+
+        if (result.error) {
+          resultBox.innerHTML = `
+            <h2 class="result-title">Ups, da fehlt noch etwas …</h2>
+            <p class="tagline">${result.error}</p>
+          `;
+          resultBox.classList.add("visible");
+          return;
+        }
+
+        const d = result.data;
+        const tagsHTML = (d.tags || [])
+          .map(tag => `<span class="pill${tag === "Tradition & Liturgie" ? " pill--purple" : ""}">${tag}</span>`)
+          .join(" ");
+
+        const imageHTML = d.image
+          ? `<figure class="result-image">
+               <img src="${d.image}" alt="${d.imageAlt || d.title}">
+               <figcaption>${d.imageAlt || d.title}</figcaption>
+             </figure>`
+          : "";
+
+        resultBox.innerHTML = `
+          <h2 class="result-title">${d.title}</h2>
+          <p class="tagline">${d.tagline}</p>
+          <p class="result-body">${d.body}</p>
+          <div class="meta">
+            <div><strong>Adresse / Bereich:</strong><br>${d.address}</div>
+            ${tagsHTML ? `<div style="margin-top:0.4rem;">${tagsHTML}</div>` : ""}
+          </div>
+          ${imageHTML}
+          <p class="tagline">Gesamt beantwortet: <strong>${result.overall}%</strong></p>
+        `;
+
+        requestAnimationFrame(() => {
+          resultBox.classList.add("visible");
+        });
+      }
+
+      form.addEventListener("submit", function(event) {
+        event.preventDefault();
+        errorBox.textContent = "";
+
+        const result = evaluateQuiz();
+
+        if (result.error && !result.trait) {
+          errorBox.textContent = result.error;
+        }
+
+        renderResult(result);
+      });
+    })();
+  </script>
+</body>
+</html>
